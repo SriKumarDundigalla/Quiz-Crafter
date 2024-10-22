@@ -1,0 +1,39 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+*.egg-info
+*.egg
+*.log
+
+# Virtual environment
+venv/
+env/
+
+# Flask & Other Configurations
+instance/
+*.sqlite3
+*.db
+*.env
+
+# Compiled files
+*.out
+*.o
+*.class
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Static files
+static/
+
+# Logs
+*.log
+
+# Ignore the QTI Text Files folder
+QTI_Text_Files/
+
+# Ignore user-specific data
+users/

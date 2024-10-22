@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Login Times</title>
+    <!-- Updated favicon link -->
+    <link rel="icon" href="{{ url_for('static', filename='images/Official_USF_Bulls_Athletic_Logo.png') }}" type="image/x-icon"/>
+</head>
+<body>
+    <h1>User Login Times</h1>
+    <ul>
+        {% for login in logins %}
+            <li>{{ login[0] }} logged in on {{ login[1] }} at {{ login[2] }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('login') }}">Back to Home</a>
+</body>
+</html>

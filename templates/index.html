@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Crafter AI</title>
+    <!-- Updated favicon link -->
+    <link rel="icon" href="{{ url_for('static', filename='images/Official_USF_Bulls_Athletic_Logo.png') }}" type="image/x-icon"/>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet"/> 
+
+    <style>
+        @keyframes moveBull {
+            from {
+                transform: translateX(-450%);
+            }
+            to {
+                transform: translateX(1200%);
+            }
+        }
+        #walkingBull {
+            height: 40px;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            display: none;
+            animation: moveBull 10s linear infinite;
+        }
+    </style>
+</head>
+<body onload="showBull()">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Quiz Crafter AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <img src="{{ url_for('static', filename='images/bull.gif') }}" alt="Loading Bull" id="walkingBull" style="height: 150px; width: auto;">
+                    </li>
+                </ul>
+                <!-- Logout Button -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <span class="navbar-text me-3 h3 text-white">Welcome, {{ username }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="main">
+        <div class="container-lg mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="lo-text-color">Upload files:</h4>
+                    <!-- File Upload Form -->
+                    <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="showBull()">
+                        <input class="form-control opacity-75 border-dark form-control-lg" type="file" name="files" id="files" multiple>
+                        <button type="submit" class="btn btn-primary mt-3 btn-lg btn-cl">Upload</button>
+                    </form>
+                    
+                    <!-- Display Uploaded Files -->
+                    {% if filenames %}
+                        <div class="mt-4">
+                            <ul class="list-group list-group-flush">
+                                {% for file in filenames %}
+                                    <li class="list-group-item back-file d-flex justify-content-between align-items-center">
+                                        <!-- Link to the uploaded file -->
+                                        <a href="{{ url_for('static', filename='Files/' ~ username ~ '_files/' ~ file) }}" target="_blank">{{ file }}</a>
+                                        <!-- Delete File Form -->
+                                        <form action="/delete/{{ file }}" method="post" style="display: inline;" onsubmit="showBull()">
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Generate Learning Outcomes Form -->
+                        <form action="/generate_outcomes" method="post" class="d-grid gap-2 opacity-100 mt-4" onsubmit="showBull()">
+                            <!-- Dropdown for selection -->
+                            <div class="mb-3">
+                                <label for="promptType" class="form-label">Select Prompt Type</label>
+                                <select class="form-select" id="promptType" name="promptType">
+                                    <option value="zero_shot">Zero-shot</option>
+                                    <option value="cot">Chain of Thought (COT)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg back-file p-1 fw-bold text-white">Generate Learning Outcomes</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Scripts -->
+    <script>
+        function showBull() {
+            var bull = document.getElementById('walkingBull');
+            bull.style.display = 'block'; // Show the bull
+        }
+        
+        function hideBull() {
+            var bull = document.getElementById('walkingBull');
+            bull.style.display = 'none'; // Hide the bull
+        }
+        
+        window.addEventListener('load', function() {
+            setTimeout(hideBull, 5000); // Hide after 5 seconds for demo purposes
+        });
+    </script>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
