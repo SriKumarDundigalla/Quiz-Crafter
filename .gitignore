@@ -37,3 +37,9 @@ QTI_Text_Files/
 
 # Ignore user-specific data
 users/
+
+docs/
+
+path/
+
+users.csv
