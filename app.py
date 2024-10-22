@@ -1,5 +1,5 @@
-from Prompt_examples import content1,content2,content3, content4
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+from Prompt_examples import content1,content2,content3, content4
 from werkzeug.utils import secure_filename
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -22,16 +22,22 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import networkx as nx
 from sklearn.cluster import KMeans
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+
 from pinecone import Pinecone
+from langchain_community.llms import OpenAI
+from langchain_community.chat_models import ChatOpenAI
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
+
+
 import warnings
 import shutil
 import json
 from langchain_text_splitters import TokenTextSplitter
 from typing import List
 from langchain.output_parsers import PydanticOutputParser
-from langchain_core.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel
+
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -54,6 +60,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from docx import Document
+import warnings
 # Configure basic logging
 logging.basicConfig(filename='App.log', level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s')
